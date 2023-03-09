@@ -112,16 +112,15 @@ void WbPositionViewer::update() {
       WbTransform *transform = mTransform;
       for (int i = 0; i < mRelativeToComboBox->currentIndex(); ++i)
         transform = transform->upperTransform();
-      position = mTransform->position() - transform->position();
-      position = position * WbMatrix3(transform->rotation().toQuaternion());
-      WbRotation currentRotation = WbRotation(mTransform->rotationMatrix());
-      WbRotation referenceRotation = WbRotation(transform->rotationMatrix());
-      currentRotation.normalize();
-      referenceRotation.normalize();
-      if (currentRotation == referenceRotation)  // if there is no orientation difference, return 0 0 1 0
-        rotation = WbRotation(0, 0, 1, 0);
-      else
-        rotation = WbRotation(currentRotation.toQuaternion() * referenceRotation.toQuaternion().conjugated());
+      WbMatrix4 mFrom(transform->matrix());
+      const WbVector3 &scaleFrom = mFrom.scale();
+      mFrom.scale(1.0 / scaleFrom.x(), 1.0 / scaleFrom.y(), 1.0 / scaleFrom.z());
+      const WbMatrix4 m = mFrom.pseudoInversed() * mTransform->matrix();
+      position = m.translation();
+      const WbVector3 &s = m.scale();
+      WbMatrix3 r = m.extracted3x3Matrix();
+      r.scale(1.0 / s.x(), 1.0 / s.y(), 1.0 / s.z());
+      rotation.fromMatrix3(r);
     }
     for (int i = 0; i < mPositionLabels.size(); ++i)
       mPositionLabels[i]->setText(WbPrecision::doubleToString(position[i], WbPrecision::GUI_MEDIUM));
