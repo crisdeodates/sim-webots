@@ -58,14 +58,8 @@
 class WbRecognizedObject : public WbObjectDetection {
 public:
   WbRecognizedObject(WbCamera *camera, WbSolid *object, bool needToCheckCollision, double maxRange) :
-    WbObjectDetection(camera, object, needToCheckCollision, maxRange) {
-    mId = object->uniqueId();
-    mModel = "";
-    mRelativeOrientation = WbRotation(0.0, 1.0, 0.0, 0.0);
-    mPositionOnImage = WbVector2(0, 0);
-    mPixelSize = WbVector2(0, 0);
-    mColors.clear();
-  };
+    WbObjectDetection(camera, object, needToCheckCollision, maxRange) :
+    mId(object->uniqueId()){};
 
   virtual ~WbRecognizedObject() {}
 

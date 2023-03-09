@@ -2950,12 +2950,12 @@ void WbSolid::exportUrdfShape(WbWriter &writer, const QString &geometry, const W
     writer << QString("<%1>\n").arg(element[j]);
     writer.increaseIndent();
     if (transform != this || !offset.isNull()) {
-      WbVector3 translation = transform->translation() + offset;
-      WbRotation rotation = transform->rotation();
+      WbVector3 translation = offset;
+      WbRotation rotation;
       writer.indent();
-      if (transform == this) {
-        rotation = WbRotation(0.0, 1.0, 0.0, 0.0);
-        translation = offset;
+      if (transform != this) {
+        translation += transform->translation();
+        rotation = transform->rotation();
       }
       writer << QString("<origin xyz=\"%1\" rpy=\"%2\"/>\n")
                   .arg(translation.toString(WbPrecision::FLOAT_ROUND_6))

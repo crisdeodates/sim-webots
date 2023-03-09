@@ -34,8 +34,8 @@ void WbRotation::fromQuaternion(const WbQuaternion &q) {
   if (mAngle < WbPrecision::DOUBLE_EQUALITY_TOLERANCE) {
     // if the angle is close to zero, then the direction of the axis is not important
     mX = 0.0;
-    mY = 1.0;
-    mZ = 0.0;
+    mY = 0.0;
+    mZ = 1.0;
     mAngle = 0.0;
     return;
   }
@@ -51,10 +51,10 @@ void WbRotation::fromMatrix3(const WbMatrix3 &M) {
   // Reference: https://www.geometrictools.com/Documentation/RotationRepresentations.pdf
   const double theta = WbMathsUtilities::clampedAcos((M(0, 0) + M(1, 1) + M(2, 2) - 1) / 2);
   if (theta < WbPrecision::DOUBLE_EQUALITY_TOLERANCE) {  // If `theta == 0`
-    mX = 1;
-    mY = 0;
-    mZ = 0;
-    mAngle = 0;
+    mX = 0.0;
+    mY = 0.0;
+    mZ = 1.0;
+    mAngle = 0.0;
     return;
   } else if (M_PI - theta < WbPrecision::DOUBLE_EQUALITY_TOLERANCE) {  // If `theta == pi`
     if (M(0, 0) > M(1, 1) && M(0, 0) > M(2, 2)) {
@@ -83,9 +83,9 @@ void WbRotation::fromBasisVectors(const WbVector3 &vx, const WbVector3 &vy, cons
   const double cosAngle = 0.5 * (vx.x() + vy.y() + vz.z() - 1.0);
   if (fabs(cosAngle) > 1.0) {
     // exception
-    mX = 1.0;
+    mX = 0.0;
     mY = 0.0;
-    mZ = 0.0;
+    mZ = 1.0;
     mAngle = 0.0;
   } else {
     mX = vy.z() - vz.y();
