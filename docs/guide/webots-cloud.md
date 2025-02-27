@@ -10,7 +10,7 @@ Webots features a "share" button that allows you to upload a 3D [Web Scene](web-
 This is useful to show models of robots, sensors, actuators, objects, environments or simulation play-back to colleagues or to the wide public.
 Once your scene or animation is uploaded, you get a link (web URL) pointing to your upload, which you can share.
 Anyone with this link can view your 3D scene or animation with a simple mouse click.
-Scenes and animations can also be uploaded on webots.cloud by clicking the "Add a new scene/animation" button, and uploading locally saved `X3D`, `JSON`, thumbnail and texture files.
+Scenes and animations can also be uploaded on webots.cloud by clicking the "Add a new scene/animation" button, and uploading locally saved `W3D`, `JSON`, thumbnail and texture files.
 
 ### Share and use your Proto
 
@@ -114,8 +114,8 @@ The server tab on webots.cloud contains information on the [Simulation Servers](
 - [Nao room](https://webots.cloud/AcTNYs0)
 
 **Proto**
-- [NAO](https://webots.cloud/run?url={{ url.github_tree }}/projects/robots/softbank/nao/protos/Nao.proto)
-- [WoodenPalletStack](https://webots.cloud/run?url={{ url.github_tree }}/projects/objects/factory/pallet/protos/WoodenPalletStack.proto)
+- [NAO](https://webots.cloud/run?url={{ url.github_blob }}/projects/robots/softbank/nao/protos/Nao.proto)
+- [WoodenPalletStack](https://webots.cloud/run?url={{ url.github_blob }}/projects/objects/factory/pallet/protos/WoodenPalletStack.proto)
 
 **Simulation**:
 

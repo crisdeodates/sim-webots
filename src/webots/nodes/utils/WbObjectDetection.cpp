@@ -1,4 +1,4 @@
-// Copyright 1996-2023 Cyberbotics Ltd.
+// Copyright 1996-2024 Cyberbotics Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -154,7 +154,7 @@ bool WbObjectDetection::doesChildrenHaveBoundingObject(const WbSolid *solid) {
   if (solid->boundingObject())
     return true;
   else {
-    foreach (WbSolid *sc, solid->solidChildren()) {
+    foreach (const WbSolid *sc, solid->solidChildren()) {
       if (doesChildrenHaveBoundingObject(sc))
         return true;
     }
@@ -433,7 +433,7 @@ bool WbObjectDetection::isWithinBounds(const WbAffinePlane *frustumPlanes, const
   return true;
 }
 
-bool WbObjectDetection::recursivelyCheckIfWithinBounds(WbSolid *solid, const bool boundsInitialized,
+bool WbObjectDetection::recursivelyCheckIfWithinBounds(const WbSolid *solid, const bool boundsInitialized,
                                                        const WbAffinePlane *frustumPlanes) {
   bool initialized = boundsInitialized;
   if (initialized) {
@@ -442,7 +442,7 @@ bool WbObjectDetection::recursivelyCheckIfWithinBounds(WbSolid *solid, const boo
       mergeBounds(mObjectSize, mObjectRelativePosition, newObjectSize, newObjectRelativePosition);
   } else
     initialized = isWithinBounds(frustumPlanes, solid->boundingObject(), mObjectSize, mObjectRelativePosition, solid);
-  foreach (WbSolid *s, solid->solidChildren())
+  foreach (const WbSolid *s, solid->solidChildren())
     initialized = recursivelyCheckIfWithinBounds(s, initialized, frustumPlanes);
   return initialized;
 }

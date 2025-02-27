@@ -1,4 +1,4 @@
-// Copyright 1996-2023 Cyberbotics Ltd.
+// Copyright 1996-2024 Cyberbotics Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -128,9 +128,9 @@ bool WbSelection::isObjectMotionAllowed() const {
     return false;
 
   WbBaseNode *topNode = mSelectedAbstractPose->baseNode();
-  WbAbstractPose *topPose = NULL;
+  const WbAbstractPose *topPose = NULL;
   if (!topNode->isTopLevel()) {
-    WbSolid *solid = WbNodeUtilities::findUppermostSolid(topNode);
+    const WbSolid *solid = WbNodeUtilities::findUppermostSolid(topNode);
     if (solid)
       topPose = dynamic_cast<WbAbstractPose *>(topNode);
     else
